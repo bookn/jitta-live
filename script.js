@@ -29,11 +29,13 @@ messageRef.on('value', async (snapshot) => {
     const graphApiEndpoint = `https://graph.facebook.com/${videoId}_${commentId}?fields=message,id,created_time,from%7Bpicture.type(large),name%7D&access_token=${config.facebook.accessToken}`
     const response = await fetch(graphApiEndpoint)
     const json = await response.json()
+    document.getElementById('container').style.display = 'flex'
     document.getElementById('result').innerHTML = json.message
     document.getElementById('profile-picture').src = json.from.picture.data.url
     document.getElementById('author').innerHTML = json.from.name
   } catch (e) {
-    console.log(e)
+    document.getElementById('container').style.display = 'none'
+    console.log('error occured', e)
     // TODO: error page
   }
 })
