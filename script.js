@@ -1,5 +1,5 @@
 firebase.initializeApp(config.firebase)
-const messageRef = firebase.database().ref('/commentUrl')
+const messageRef = firebase.database().ref()
 
 /**
   parse comment url into videoId and commentId
@@ -10,6 +10,7 @@ const messageRef = firebase.database().ref('/commentUrl')
   // }
   parseCommentUrl(https://www.facebook.com/jitta.th/videos/thisIsVideoId/?comment_id=thisIsCommentId)
 */
+
 const parseCommentUrl = (commentUrl) => {
   const url = new URL(commentUrl)
   const commentId = url.searchParams.get('comment_id')
@@ -23,16 +24,16 @@ const parseCommentUrl = (commentUrl) => {
 }
 
 messageRef.on('value', async (snapshot) => {
-  const commentUrl = snapshot.val()
+  const { questions, currentQuestion } = snapshot.val()
   try {
-    const { videoId, commentId } = parseCommentUrl(commentUrl)
-    const graphApiEndpoint = `https://graph.facebook.com/${videoId}_${commentId}?fields=message,id,created_time,from%7Bpicture.type(large),name%7D&access_token=${config.facebook.accessToken}`
-    const response = await fetch(graphApiEndpoint)
-    const json = await response.json()
+    // const { videoId, commentId } = parseCommentUrl(commentUrl)
+    // const graphApiEndpoint = `https://graph.facebook.com/${videoId}_${commentId}?fields=message,id,created_time,from%7Bpicture.type(large),name%7D&access_token=${config.facebook.accessToken}`
+    // const response = await fetch(graphApiEndpoint)
+    // const json = await response.json()
     document.getElementById('container').style.display = 'flex'
-    document.getElementById('result').innerHTML = json.message
-    document.getElementById('profile-picture').src = json.from.picture.data.url
-    document.getElementById('author').innerHTML = json.from.name
+    document.getElementById('result').innerHTML = questions[currentQuestion].questionText
+    document.getElementById('profile-picture').src = questions[currentQuestion].profilePicture
+    document.getElementById('author').innerHTML = questions[currentQuestion].author
   } catch (e) {
     document.getElementById('container').style.display = 'none'
     console.log('error occured', e)

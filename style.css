@@ -26,6 +26,15 @@ p {
   margin-top: 1vw;
   margin-bottom: 0;
 }
+
+table {
+  border-collapse: collapse;
+}
+
+td,th {
+  border: 1px solid black;
+}
+
 .container {
   display: flex;
   align-items: flex-end;
