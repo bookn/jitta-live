@@ -31,8 +31,8 @@ messageRef.on('value', async (snapshot) => {
     // const response = await fetch(graphApiEndpoint)
     // const json = await response.json()
     document.getElementById('container').style.display = 'flex'
-    document.getElementById('result').innerHTML = questions[currentQuestion].questionText
-    document.getElementById('profile-picture').src = questions[currentQuestion].profilePicture
+    document.getElementById('result').innerHTML = questions[currentQuestion].text
+    document.getElementById('profile-picture').src = questions[currentQuestion].pictureUrl
     document.getElementById('author').innerHTML = questions[currentQuestion].author
   } catch (e) {
     document.getElementById('container').style.display = 'none'

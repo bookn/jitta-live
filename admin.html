@@ -10,23 +10,60 @@
   <script src="https://www.gstatic.com/firebasejs/5.0.3/firebase.js"></script>
   <script src="./config.js"></script>
   <script src="./adminScript.js"></script>
-  <table style="width:  100%; border-collapse: collapse;">
+  <div id="modal">
+    <div >
+      <div>
+        Author: <input id="edit-author"></input>
+      </div>
+      <div>
+        Picture Url: <input id="edit-pictureUrl"></input>
+      </div>
+      <div>
+        Text: <input id="edit-text"></input>
+      </div>
+      <div>
+        <input id="edit-button" type="button" value="Submit"></input>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div>
+      Author: <input id="add-author"></input>
+    </div>
+    <div>
+      Picture Url: <input id="add-pictureUrl"></input>
+    </div>
+    <div>
+      Text: <input id="add-text"></input>
+    </div>
+    <div>
+      <input id="add-button" type="button" value="Submit"></input>
+    </div>
+  </div>
+  <table style="width: 100%; border-collapse: collapse;">
     <thead>
       <tr>
         <th style="width: 15%;">
-          author name
+          Author
+        </th>
+        <th style="width: 50px;">
+          Picture
         </th>
         <th>
-          question
+          Text
+        </th>
+        <th style="width: 50px;">
+          Edit
         </th>
         <th style="width: 100px;">
-          display
+          Display
         </th>
       </tr>
     </thead>
     <tbody id='table-body'>
     </tbody>
   </table>
+  <input type="" name="">
 </body>
 
 </html>
