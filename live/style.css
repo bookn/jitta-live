@@ -1,9 +1,9 @@
 @font-face {
   font-family: db_helvethaica_x65;
-  src: url('dist/db_helvethaica_x_med_v3.2.eot');
-  src: url('dist/db_helvethaica_x_med_v3.2.eot?#iefix') format('embedded-opentype'),
-      url('dist/db_helvethaica_x_med_v3.2.woff') format('woff'),
-      url('dist/db_helvethaica_x_med_v3.2.ttf') format('truetype');
+  src: url('../dist/db_helvethaica_x_med_v3.2.eot');
+  src: url('../dist/db_helvethaica_x_med_v3.2.eot?#iefix') format('embedded-opentype'),
+      url('../dist/db_helvethaica_x_med_v3.2.woff') format('woff'),
+      url('../dist/db_helvethaica_x_med_v3.2.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
