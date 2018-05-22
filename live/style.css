@@ -155,3 +155,12 @@ input {
   width: 100vw;
   height: 100vh;
 }
+
+#container {
+  opacity: 1;
+  transition: opacity 1s;
+}
+
+#container.fade {
+  opacity: 0;
+}
