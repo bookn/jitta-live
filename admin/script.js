@@ -69,10 +69,10 @@ const editQuestion = async (editIndex) => {
 }
 
 const addQuestion = async () => {
-  let author = getElementById('add-author').value
-  let pictureUrl = getElementById('add-pictureUrl').value
-  let text = getElementById('add-text').value
-  let note = getElementById('add-note').value
+  const author = getElementById('add-author').value
+  const pictureUrl = getElementById('add-pictureUrl').value
+  const text = getElementById('add-text').value
+  const note = getElementById('add-note').value
 
   saveQuestion({
     author, pictureUrl, text, note
