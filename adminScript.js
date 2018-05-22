@@ -7,10 +7,30 @@ const displayQuestion = (questionIndex) => {
   firebase.database().ref('currentQuestion').set(questionIndex)
 }
 
-const saveQuestion = async (editIndex) => {
+const resetModal = () => {
   let author = document.getElementById('edit-author').value
   let pictureUrl = document.getElementById('edit-pictureUrl').value
   let text = document.getElementById('edit-text').value
+
+  author = ''
+  pictureUrl = ''
+  text = ''
+}
+
+const openModal = () => {
+  document.getElementById('modal').style.display = 'block'
+  resetModal()
+}
+
+const closeModal = () => {
+  document.getElementById('modal').style.display = 'none'
+  resetModal()
+}
+
+const saveQuestion = async (editIndex) => {
+  const author = document.getElementById('edit-author').value
+  const pictureUrl = document.getElementById('edit-pictureUrl').value
+  const text = document.getElementById('edit-text').value
   const snapshot = await firebase.database().ref('questions').once('value')
   const questions = snapshot.val()
   questions[editIndex] = {
@@ -20,18 +40,14 @@ const saveQuestion = async (editIndex) => {
   }
   firebase.database().ref('questions').set(questions)
 
-  author = ''
-  pictureUrl = ''
-  text = ''
-  document.getElementById('modal').style.display = 'none'
+  closeModal()
 }
 
 const editQuestion = async (editIndex) => {
-  document.getElementById('modal').style.display = 'block'
+  openModal()
   const snapshot = await firebase.database().ref('questions').once('value')
   const questions = snapshot.val()
   const selectedQuestion = questions[editIndex]
-  console.log(selectedQuestion)
 
   const authorInput = document.getElementById('edit-author')
   const pictureUrlInput = document.getElementById('edit-pictureUrl')
@@ -57,6 +73,7 @@ const addQuestion = async () => {
     text
   })
   firebase.database().ref('questions').set(questions)
+
   author = ''
   pictureUrl = ''
   text = ''
@@ -98,6 +115,9 @@ const renderQuestion = (question, pictureUrl, author, index) => {
 messageRef.on('value', async (snapshot) => {
   const addButton = document.getElementById('add-button')
   addButton.onclick = addQuestion
+
+  const closeButton = document.getElementById('close-button')
+  closeButton.onclick = closeModal
 
   const { questions, currentQuestion } = snapshot.val()
 

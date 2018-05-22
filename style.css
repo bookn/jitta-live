@@ -47,12 +47,21 @@ input {
 }
 
 .edit-card {
+  position: relative;
   background-color: white;
   padding: 36px;
   border-radius: 8px;
   width: 50vw;
   margin: auto;
   margin-top: 80px;
+}
+
+#close-button {
+  position: absolute;
+  padding: 12px;
+  cursor: pointer;
+  top: 0;
+  right: 0;
 }
 
 .container {
