@@ -1,17 +1,18 @@
 const createElement = tag => document.createElement(tag)
+const getElementById = id => document.getElementById(id)
 
 firebase.initializeApp(config.firebase)
 const messageRef = firebase.database().ref()
 
 const displayQuestion = (questionIndex) => {
-  firebase.database().ref('currentQuestion').set(questionIndex)
+  messageRef.child('currentQuestion').set(questionIndex)
 }
 
 const resetModal = () => {
-  let author = document.getElementById('edit-author').value
-  let pictureUrl = document.getElementById('edit-pictureUrl').value
-  let text = document.getElementById('edit-text').value
-  let note = document.getElementById('edit-note').value
+  let author = getElementById('edit-author').value
+  let pictureUrl = getElementById('edit-pictureUrl').value
+  let text = getElementById('edit-text').value
+  let note = getElementById('edit-note').value
 
   author = ''
   pictureUrl = ''
@@ -20,67 +21,67 @@ const resetModal = () => {
 }
 
 const openModal = () => {
-  document.getElementById('modal').style.display = 'block'
+  getElementById('modal').style.display = 'block'
   resetModal()
 }
 
 const closeModal = () => {
-  document.getElementById('modal').style.display = 'none'
+  getElementById('modal').style.display = 'none'
   resetModal()
 }
 
-const saveQuestion = async (editIndex) => {
-  const author = document.getElementById('edit-author').value
-  const pictureUrl = document.getElementById('edit-pictureUrl').value
-  const text = document.getElementById('edit-text').value
-  const note = document.getElementById('edit-note').value
-  const snapshot = await firebase.database().ref('questions').once('value')
-  const questions = snapshot.val()
-  questions[editIndex] = {
-    author,
-    pictureUrl,
-    text,
-    note
+const saveQuestion = async (question, index) => {
+  const snapshot = await messageRef.child('questions').once('value')
+  let questions = snapshot.val()
+  if (index === 0 || index) {
+    questions[index] = question
+  } else {
+    if (!questions) {
+      questions = []
+    }
+    questions.push(question)
   }
-  firebase.database().ref('questions').set(questions)
-
+  messageRef.child('questions').set(questions)
   closeModal()
 }
 
 const editQuestion = async (editIndex) => {
   openModal()
-  const snapshot = await firebase.database().ref('questions').once('value')
+  const snapshot = await messageRef.child('questions').once('value')
   const questions = snapshot.val()
   const selectedQuestion = questions[editIndex]
 
-  const authorInput = document.getElementById('edit-author')
-  const pictureUrlInput = document.getElementById('edit-pictureUrl')
-  const textInput = document.getElementById('edit-text')
-  const noteInput = document.getElementById('edit-note')
+  const authorInput = getElementById('edit-author')
+  const pictureUrlInput = getElementById('edit-pictureUrl')
+  const textInput = getElementById('edit-text')
+  const noteInput = getElementById('edit-note')
 
   authorInput.value = selectedQuestion.author
   pictureUrlInput.value = selectedQuestion.pictureUrl
   textInput.value = selectedQuestion.text
   noteInput.value = selectedQuestion.note
 
-  const editButton = document.getElementById('edit-button')
-  editButton.onclick = () => saveQuestion(editIndex)
+  const editButton = getElementById('edit-button')
+  editButton.onclick = () => {
+    const author = getElementById('edit-author').value
+    const pictureUrl = getElementById('edit-pictureUrl').value
+    const text = getElementById('edit-text').value
+    const note = getElementById('edit-note').value
+    saveQuestion({
+      author, pictureUrl, text, note
+    }, editIndex)
+  }
 }
 
 const addQuestion = async () => {
-  let author = document.getElementById('add-author').value
-  let pictureUrl = document.getElementById('add-pictureUrl').value
-  let text = document.getElementById('add-text').value
-  let note = document.getElementById('add-note').value
-  const snapshot = await firebase.database().ref('questions').once('value')
-  const questions = snapshot.val()
-  questions.push({
-    author,
-    pictureUrl,
-    text,
-    note
+  let author = getElementById('add-author').value
+  let pictureUrl = getElementById('add-pictureUrl').value
+  let text = getElementById('add-text').value
+  let note = getElementById('add-note').value
+
+  saveQuestion({
+    author, pictureUrl, text, note
   })
-  firebase.database().ref('questions').set(questions)
 
   author = ''
   pictureUrl = ''
@@ -88,9 +89,13 @@ const addQuestion = async () => {
   note = ''
 }
 
-const renderQuestion = (question, pictureUrl, author, note = '', index) => {
+const renderQuestion = (index, currentQuestion, {
+  text, pictureUrl, author, note = ''
+} = {}) => {
   const row = createElement('tr')
-
+  if (index === currentQuestion) {
+    row.setAttribute('style', 'background-color: #47c6f1;')
+  }
   const authorTd = createElement('td')
   const questionTd = createElement('td')
   const pictureTd = createElement('td')
@@ -100,13 +105,14 @@ const renderQuestion = (question, pictureUrl, author, note = '', index) => {
 
   const editButton = createElement('button')
   const displayButton = createElement('button')
+  displayButton.disabled = index === currentQuestion
   editButton.onclick = () => editQuestion(index)
   displayButton.onclick = () => displayQuestion(index)
   editButton.innerHTML = 'Edit'
   displayButton.innerHTML = 'Display this question'
 
   authorTd.innerHTML = author
-  questionTd.innerHTML = question
+  questionTd.innerHTML = text
   noteTd.innerHTML = note
   pictureTd.innerHTML = `<img src="${pictureUrl}" style="width: 50px;">`
 
@@ -120,27 +126,26 @@ const renderQuestion = (question, pictureUrl, author, note = '', index) => {
   row.appendChild(editTd)
   row.appendChild(displayTd)
 
-  const tbody = document.getElementById('table-body')
+  const tbody = getElementById('table-body')
   tbody.appendChild(row)
 }
 
 messageRef.on('value', async (snapshot) => {
-  const addButton = document.getElementById('add-button')
+  const addButton = getElementById('add-button')
   addButton.onclick = addQuestion
 
-  const closeButton = document.getElementById('close-button')
+  const closeButton = getElementById('close-button')
   closeButton.onclick = closeModal
 
   const { questions, currentQuestion } = snapshot.val()
 
-  try {
-    const tbody = document.getElementById('table-body')
-    tbody.innerHTML = ''
+  const tbody = getElementById('table-body')
+  tbody.innerHTML = ''
+  if (questions) {
     questions.forEach((question, index) => {
-      const { text, pictureUrl, note, author } = question
-      renderQuestion(text, pictureUrl, author, note, index)
+      renderQuestion(index, currentQuestion, question)
     })
-  } catch (e) {
-
+  } else {
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align: center;">No Data</td></tr>'
   }
 })
