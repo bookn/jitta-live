@@ -9,15 +9,10 @@ const displayQuestion = (questionIndex) => {
 }
 
 const resetModal = () => {
-  let author = getElementById('edit-author').value
-  let pictureUrl = getElementById('edit-pictureUrl').value
-  let text = getElementById('edit-text').value
-  let note = getElementById('edit-note').value
-
-  author = ''
-  pictureUrl = ''
-  text = ''
-  note = ''
+  getElementById('edit-author').value = ''
+  getElementById('edit-pictureUrl').value = ''
+  getElementById('edit-text').value = ''
+  getElementById('edit-note').value = ''
 }
 
 const openModal = () => {
@@ -74,19 +69,19 @@ const editQuestion = async (editIndex) => {
 }
 
 const addQuestion = async () => {
-  let author = getElementById('add-author').value
-  let pictureUrl = getElementById('add-pictureUrl').value
-  let text = getElementById('add-text').value
-  let note = getElementById('add-note').value
+  const author = getElementById('add-author').value
+  const pictureUrl = getElementById('add-pictureUrl').value
+  const text = getElementById('add-text').value
+  const note = getElementById('add-note').value
 
   saveQuestion({
     author, pictureUrl, text, note
   })
 
-  author = ''
-  pictureUrl = ''
-  text = ''
-  note = ''
+  getElementById('add-author').value = ''
+  getElementById('add-pictureUrl').value = ''
+  getElementById('add-text').value = ''
+  getElementById('add-note').value = ''
 }
 
 const renderQuestion = (index, currentQuestion, {
