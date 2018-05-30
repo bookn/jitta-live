@@ -1,9 +1,4 @@
 @font-face {
-  font-weight: normal;
-  font-style: normal;
-}
-/* for jitta live
-@font-face {
   font-family: db_helvethaica_x65;
   src: url('../dist/db_helvethaica_x_med_v3.2.eot');
   src: url('../dist/db_helvethaica_x_med_v3.2.eot?#iefix') format('embedded-opentype'),
@@ -11,7 +6,7 @@
       url('../dist/db_helvethaica_x_med_v3.2.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
-} */
+} 
 
 body {
   font-family: 'db_helvethaica_x65', Helvetica Neue, Arial, Helvetica, sans-serif;
@@ -93,7 +88,6 @@ input {
   font-size: 2.7vw;
 }
 
-/* for jitta live
 .card .name {
   background-color: #47c6f1;
   display: inline-flex;
@@ -110,25 +104,7 @@ input {
   box-shadow: 0 0.5vw 1.5vw 0.2vw rgba(0,0,0,0.24);
   color: #fff;
   border-radius: 1vw;
-} */
-
-.card .name {
-  background-color: #DBD6C8;
-  color: #000000;
-  display: inline-flex;
-  padding: 0.7vw 3vw 0.7vw 6.5vw;
-  margin-bottom: -0.05vw;
-  text-shadow: 1px 1px 4px rgba(0,0,0, 0.3);
 }
-
-
-.card .content {
-  background-color: #FFFFFF;
-  padding: 1.5vw 3vw 1.5vw 4.5vw;
-  box-shadow: 0 0.5vw 1.5vw 0.2vw rgba(0,0,0,0.24);
-  color: #000000;
-}
-
 
 #author {
   font-weight: bold;
