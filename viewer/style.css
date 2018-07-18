@@ -12,11 +12,19 @@ body {
 
 #author {
   font-size: 3.5vw;
-  font-weight: bold;
   margin-bottom: 1.5vw;
+  color: black;
 }
 
 #result {
   margin-top: 1vw;
   font-size: 3.5vw;
+  color: black;
 }
+
+#note {
+  margin-top: 1vw;
+  font-size: 3.5vw;
+  color: black;
+}
+

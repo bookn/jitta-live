@@ -1,12 +1,12 @@
 @font-face {
   font-family: db_helvethaica_x65;
-  src: url('dist/db_helvethaica_x_med_v3.2.eot');
-  src: url('dist/db_helvethaica_x_med_v3.2.eot?#iefix') format('embedded-opentype'),
-      url('dist/db_helvethaica_x_med_v3.2.woff') format('woff'),
-      url('dist/db_helvethaica_x_med_v3.2.ttf') format('truetype');
+  src: url('../dist/db_helvethaica_x_med_v3.2.eot');
+  src: url('../dist/db_helvethaica_x_med_v3.2.eot?#iefix') format('embedded-opentype'),
+      url('../dist/db_helvethaica_x_med_v3.2.woff') format('woff'),
+      url('../dist/db_helvethaica_x_med_v3.2.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
-}
+} 
 
 body {
   font-family: 'db_helvethaica_x65', Helvetica Neue, Arial, Helvetica, sans-serif;
@@ -26,6 +26,44 @@ p {
   margin-top: 1vw;
   margin-bottom: 0;
 }
+
+table {
+  border-collapse: collapse;
+}
+
+td,th {
+  border: 1px solid black;
+}
+
+input {
+  height: 32px;
+  width: 100%;
+  margin-top: 8px;
+  font-size: 16px;
+}
+
+.input {
+  padding: 8px;
+}
+
+.edit-card {
+  position: relative;
+  background-color: white;
+  padding: 36px;
+  border-radius: 8px;
+  width: 50vw;
+  margin: auto;
+  margin-top: 80px;
+}
+
+#close-button {
+  position: absolute;
+  padding: 12px;
+  cursor: pointer;
+  top: 0;
+  right: 0;
+}
+
 .container {
   display: flex;
   align-items: flex-end;
@@ -43,7 +81,7 @@ p {
 }
 
 .card {
-  width: 84vw;
+  width: 85vw;
 }
 
 .card span {
@@ -54,21 +92,19 @@ p {
   background-color: #47c6f1;
   display: inline-flex;
   padding: 0.7vw 3vw 0.7vw 6.5vw;
-  border-radius: 0 1vw 0 0;
   color: #fff;
   margin-bottom: -0.05vw;
   text-shadow: 1px 1px 4px rgba(0,0,0, 0.3);
+  border-radius: 0 1vw 0 0;
 }
-
 
 .card .content {
   background-color: #3E4141;
   padding: 1.5vw 3vw 1.5vw 4.5vw;
   box-shadow: 0 0.5vw 1.5vw 0.2vw rgba(0,0,0,0.24);
-  border-radius: 1vw;
   color: #fff;
+  border-radius: 1vw;
 }
-
 
 #author {
   font-weight: bold;
@@ -79,10 +115,28 @@ p {
   border-radius: 50%;
   width: 8vw;
   height: 8vw;
+  object-fit: cover;
   margin-right: 2vw;
   border: 0.4vw solid white;
   position: absolute;
   left: -4vw;
   top: -1.5vw;
   box-shadow: 0 0.25vw 1.5vw 0 rgba(0,0,0,0.16);
+}
+
+#modal {
+  display: none;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.55);
+  width: 100vw;
+  height: 100vh;
+}
+
+#container {
+  opacity: 1;
+  transition: opacity 1s;
+}
+
+#container.fade {
+  opacity: 0;
 }

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Jitta live</title>
+  <link rel="stylesheet" type="text/css" href="../live/style.css">
+</head>
+
+<body>
+  <script src="https://www.gstatic.com/firebasejs/5.0.3/firebase.js"></script>
+  <script src="../config.js"></script>
+  <script src="./script.js"></script>
+  <div id="modal">
+    <div class="edit-card">
+      <div class="input">
+        Author: <input id="edit-author"></input>
+      </div>
+      <div class="input">
+        Picture Url: <input id="edit-pictureUrl"></input>
+      </div>
+      <div class="input">
+        Text: <input id="edit-text"></input>
+      </div>
+      <div class="input">
+        Note: <input id="edit-note"></input>
+      </div>
+      <div class="input">
+        <input id="edit-button" type="button" value="Submit"></input>
+      </div>
+      <div id="close-button">
+        x
+      </div>
+    </div>
+  </div>
+  <div style="width: 230px;">
+    <div class="input">
+      Author: <input id="add-author"></input>
+    </div>
+    <div class="input">
+      Picture Url: <input id="add-pictureUrl"></input>
+    </div>
+    <div class="input">
+      Text: <input id="add-text"></input>
+    </div>
+    <div class="input">
+      Note: <input id="add-note"></input>
+    </div>
+    <div class="input">
+      <input id="add-button" type="button" value="Submit"></input>
+    </div>
+  </div>
+  <table style="width: 100%; border-collapse: collapse;">
+    <thead>
+      <tr>
+        <th style="width: 15%;">
+          Author
+        </th>
+        <th style="width: 50px;">
+          Picture
+        </th>
+        <th>
+          Text
+        </th>
+        <th>
+          Note
+        </th>
+        <th style="width: 50px;">
+          Edit
+        </th>
+        <th style="width: 100px;">
+          Display
+        </th>
+      </tr>
+    </thead>
+    <tbody id='table-body'>
+    </tbody>
+  </table>
+</body>
+
+</html>
